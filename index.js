@@ -9,6 +9,7 @@ const Discord = require('discord.js');
 const client = new Discord.Client();
 client.once('ready', () => {
 	console.log("Ready!");
+	client.user.setStatus("DM .rename ChannelName");
 });
 
 var AutoChannels = [];
@@ -71,7 +72,7 @@ client.on("message", (message) => {
 			message.reply("Sorry, I don't appear to know what channel you\'re in right now. Please rejoin and try again.");
 		}
 	}
-	if (message.guild.ownerID == message.author.id) {
+	if (message.channel.type === "text" && message.guild && message.guild.ownerID == message.author.id) {
 		if (content.startsWith(".creator")) {
 			if (UserChannelTracker[author.id]) {
 				let UserChannel = UserChannelTracker[author.id];
@@ -123,9 +124,7 @@ function CreateAutoChannel(member, channel) {
 	channel.clone({
 		name: `${member.displayName}'s Channel`
 	})
-	.then (newChannel => {
-		member.voice.setChannel(newChannel);
-	}).catch(console.error);
+	.then(newChannel => member.voice.setChannel(newChannel));
 }
 
 
