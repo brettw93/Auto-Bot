@@ -2,7 +2,14 @@
 // Lets see how broken this ends up.
 
 // Very Safe Key Storage
-const DiscordToken = require('./bottoken.json').token;
+let DiscordToken = "";
+const env_token = process.env.AB_TOKEN || "";
+if (env_token === "") {
+	DiscordToken = require('./bottoken.json').token;
+} else {
+	console.log("Env Token Used.");
+	DiscordToken = env_token;
+}
 
 const fs = require('fs');
 const Discord = require('discord.js');
