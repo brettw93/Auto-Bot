@@ -9,7 +9,10 @@ const Discord = require('discord.js');
 const client = new Discord.Client();
 client.once('ready', () => {
 	console.log("Ready!");
-	client.user.setStatus("DM .rename ChannelName");
+	client.user.setPresence({
+		activity: { name: "DM .rename ChannelName" },
+		status: "online",
+	});
 });
 
 var AutoChannels = [];
