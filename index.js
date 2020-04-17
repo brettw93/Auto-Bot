@@ -2,14 +2,7 @@
 // Lets see how broken this ends up.
 
 // Very Safe Key Storage
-let DiscordToken = "";
-const env_token = process.env.AB_TOKEN || "";
-if (env_token === "") {
-	DiscordToken = require('./bottoken.json').token;
-} else {
-	console.log("Env Token Used.");
-	DiscordToken = env_token;
-}
+const DiscordToken = process.env.AB_TOKEN || "";
 
 const fs = require('fs');
 const Discord = require('discord.js');
@@ -100,7 +93,7 @@ client.on("message", (message) => {
 	}
 });
 
-client.login(DiscordToken);
+client.login(DiscordToken).catch(console.error);
 
 // Channel Functions
 
